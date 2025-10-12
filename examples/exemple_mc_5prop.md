@@ -6,9 +6,7 @@
 
 - Marseille
 - Lyon
-
 + Paris
-
 - Lille
 - Nice
 
@@ -17,12 +15,9 @@
 ### Quels sont les nombres premiers inférieurs à 10 ?
 
 + 2
-- 3
-
++ 3
 - 4
-
 + 5
-
 - 6
 
 ## [Q003]
@@ -30,11 +25,8 @@
 ### Quelles planètes sont plus proches du Soleil que la Terre ?
 
 - Mars
-
 + Vénus
-
 - Jupiter
-
 + Mercure
-
 - Saturne
+
