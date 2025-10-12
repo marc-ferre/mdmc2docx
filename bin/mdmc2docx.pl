@@ -73,11 +73,7 @@ my %config = (
     ref_path            => File::Spec->catfile($styles_dir, 'reference_MC_Arial10.docx'),
     min_pandoc_version  => '1.12',
     expected_answers    => 4,
-    font_settings       => {
-        main_font => 'Arial',
-        font_size => 10,
-        use_font_variables => 0
-    },
+    font_settings       => {},
 );
 
 # Variables de ligne de commande
@@ -118,10 +114,10 @@ $config{ref_path} = $opts{ref_path} if $opts{ref_path};
 
 # Surcharge des paramètres de police si spécifiés
 if ($opts{font_name} || $opts{font_size}) {
+    # Traitement des options de police en ligne de commande
     $config{font_settings} ||= {};
     $config{font_settings}->{main_font} = $opts{font_name} if $opts{font_name};
     $config{font_settings}->{font_size} = $opts{font_size} if $opts{font_size};
-    $config{font_settings}->{use_font_variables} = 1;  # Activer les variables si police spécifiée
 }
 
 # Validation des prérequis et traitement
@@ -591,27 +587,44 @@ sub convert_to_docx {
         -o => $output_path
     );
     
-    # Ajout des variables de police si configurées
-    if ($config{font_settings} && $config{font_settings}->{use_font_variables}) {
+    # Gestion des polices - approche simplifiée et robuste
+    my $use_reference_file = 0;
+    
+    # Priorité 1: Variables de police Pandoc (toujours appliquées si configurées)
+    if ($config{font_settings}) {
         if ($config{font_settings}->{main_font}) {
             push @pandoc_args, '-V', "mainfont=" . $config{font_settings}->{main_font};
-            log_message("Police principale: " . $config{font_settings}->{main_font}, 'INFO');
+            log_message("Police principale forcée: " . $config{font_settings}->{main_font}, 'INFO');
         }
         if ($config{font_settings}->{font_size}) {
             push @pandoc_args, '-V', "fontsize=" . $config{font_settings}->{font_size} . "pt";
-            log_message("Taille de police: " . $config{font_settings}->{font_size} . "pt", 'INFO');
+            log_message("Taille de police forcée: " . $config{font_settings}->{font_size} . "pt", 'INFO');
         }
     }
     
-    # Ajout du fichier de référence si disponible (priorité sur les variables)
+    # Priorité 2: Fichier de référence (seulement si pas de variables ou si explicitement demandé)
     if ($config{ref_path} && -f $config{ref_path}) {
         push @pandoc_args, '--reference-doc', $config{ref_path};
-        log_message("Utilisation du fichier de référence: $config{ref_path}", 'INFO');
+        log_message("Fichier de référence utilisé: $config{ref_path}", 'INFO');
+        $use_reference_file = 1;
     } elsif ($config{ref_path}) {
         log_message("Fichier de référence introuvable: $config{ref_path}", 'WARN');
-        log_message("Utilisation des variables de police Pandoc", 'INFO');
     }
     
+    # Information sur la stratégie utilisée
+    if ($config{font_settings} && ($config{font_settings}->{main_font} || $config{font_settings}->{font_size})) {
+        if ($use_reference_file) {
+            log_message("Stratégie: Variables de police + fichier de référence (variables prioritaires)", 'INFO');
+        } else {
+            log_message("Stratégie: Variables de police uniquement", 'INFO');
+        }
+    } elsif ($use_reference_file) {
+        log_message("Stratégie: Fichier de référence uniquement", 'INFO');
+    } else {
+        log_message("Stratégie: Styles par défaut Pandoc", 'INFO');
+    }
+    
+
     eval {
         pandoc @pandoc_args;
     };
