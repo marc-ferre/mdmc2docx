@@ -303,7 +303,7 @@ sub process_qcm_file {
     my ($temp_path, $output_path) = setup_output_paths($input_path);
     
     # Parsing du contenu
-    parse_and_convert($input_path, $temp_path);
+    my ($questions_count, $answers_count, $warnings_count) = parse_and_convert($input_path, $temp_path);
     
     # Conversion avec Pandoc
     convert_to_docx($temp_path, $output_path);
@@ -312,7 +312,14 @@ sub process_qcm_file {
     cleanup_temp_file($temp_path) unless $opts{keep_md4docx};
     
     log_message("Fichier DOCX créé: $output_path", 'INFO');
-    print ">>> MC converti avec succès vers: $output_path\n";
+    
+    # Message de succès moderne avec statistiques
+    print "\n";
+    print "✅ Conversion terminée avec succès !\n";
+    print "📄 Fichier généré: $output_path\n";
+    print "📊 Statistiques: $questions_count questions, $answers_count réponses";
+    print $warnings_count > 0 ? ", $warnings_count avertissements\n" : "\n";
+    print "\n";
 }
 
 sub parse_and_convert {
@@ -422,6 +429,8 @@ sub parse_and_convert {
     
     log_message(sprintf("Statistiques: %d questions, %d réponses, %d avertissements", 
         $questions_count, $answers_count, $warnings_count), 'INFO');
+    
+    return ($questions_count, $answers_count, $warnings_count);
 }
 
 sub write_header {
