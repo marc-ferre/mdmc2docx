@@ -2,7 +2,7 @@
     "prequestion_string": "**Parmi les propositions suivantes, laquelle (lesquelles) est (sont) exacte(s) ?**",
     "completemulti_string": "Aucune des propositions ci-dessus n'est exacte.",
     "a_bullet": "   A.  ",
-    "ref_path": "styles/reference_MC_Arial10_highlight.docx",
+    "ref_path": "styles/reference_MC_Arial10.docx",
     "font_settings": {
         "main_font": "Arial",
         "font_size": 10

@@ -239,6 +239,14 @@ sub load_config {
         }
     }
     
+    # Résolution des chemins relatifs dans les configurations JSON
+    if ($config{ref_path} && $config{ref_path} !~ m{^/}) {
+        # Si le chemin n'est pas absolu, le résoudre relativement au répertoire du script
+        my $resolved_path = File::Spec->catfile($script_dir, $config{ref_path});
+        log_message("Résolution chemin relatif: $config{ref_path} -> $resolved_path", 'DEBUG');
+        $config{ref_path} = $resolved_path;
+    }
+    
     log_message("Configuration chargée depuis: $config_file", 'INFO');
 }
 
