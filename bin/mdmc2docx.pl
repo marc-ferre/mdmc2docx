@@ -658,7 +658,7 @@ sub cleanup_temp_file {
 
 sub format_true {
     my ($string) = @_;
-    return "<span style=\"color: #006400;\">$string</span>";  # Vert foncé au lieu de gras
+    return "<mark>$string</mark>";  # Surlignage jaune - mieux supporté par Pandoc
 }
 
 sub format_false {
