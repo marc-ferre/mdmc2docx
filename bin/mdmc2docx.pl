@@ -658,7 +658,7 @@ sub cleanup_temp_file {
 
 sub format_true {
     my ($string) = @_;
-    return "<mark>$string</mark>";  # Surlignage jaune - mieux supporté par Pandoc
+    return ">>> **$string** <<<";  # Gras avec marqueurs ASCII simples
 }
 
 sub format_false {
