@@ -1,0 +1,49 @@
+# Fichiers temporaires
+*.md4docx
+*.docx
+.DS_Store
+
+# Logs
+*.log
+
+# Fichiers de test temporaires
+/examples/*.docx
+/test_output/
+
+# Fichiers de sauvegarde
+*.bak
+*.orig
+*~
+
+# Dossiers de cache
+.cache/
+.tmp/
+
+# Variables d'environnement locales
+.env
+.env.local
+
+# Fichiers IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Perl
+*.pm.bak
+Makefile.old
+blib/
+pm_to_blib
+
+# Fichiers spécifiques macOS
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Archives
+*.zip
+*.tar.gz
+*.tar.bz2

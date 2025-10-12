@@ -1,0 +1,12 @@
+{
+    "prequestion_string": "**Parmi les propositions suivantes, laquelle (lesquelles) est (sont) exacte(s) ?**",
+    "completemulti_string": "Aucune des propositions ci-dessus n'est exacte.",
+    "a_bullet": "   A.  ",
+    "ref_path": "/Users/marcferre/Documents/Enseignement/Outils/styles/reference_MC_UA.docx",
+    "min_pandoc_version": "1.12",
+    "expected_answers": 4,
+    "custom_styles": {
+        "true_answer_format": "highlight",
+        "false_answer_format": "normal"
+    }
+}
