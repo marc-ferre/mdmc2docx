@@ -557,8 +557,8 @@ sub output_question_and_answers {
         print $fh format_false($completemulti_string);
     }
     print $fh "\n";
-    # Lignes vides séparant les questions (deux lignes pour plus de visibilité dans DOCX)
-    print $fh "\n\n";
+    # Séparation avec espaces insécables pour forcer l'espacement dans DOCX
+    print $fh "\n&nbsp;\n\n&nbsp;\n\n";
 }
 
 sub output_question_and_answers_no_completemulti {
@@ -579,8 +579,8 @@ sub output_question_and_answers_no_completemulti {
         }
         print $fh "\n";
     }
-    # Lignes vides séparant les questions (deux lignes pour plus de visibilité dans DOCX)
-    print $fh "\n\n";
+    # Séparation avec espaces insécables pour forcer l'espacement dans DOCX
+    print $fh "\n&nbsp;\n\n&nbsp;\n\n";
 }
 
 sub convert_to_docx {
