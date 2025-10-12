@@ -658,7 +658,7 @@ sub cleanup_temp_file {
 
 sub format_true {
     my ($string) = @_;
-    return "**$string**";  # Gras - plus visible et universellement supporté
+    return "<span style=\"color: #006400;\">$string</span>";  # Vert foncé au lieu de gras
 }
 
 sub format_false {
