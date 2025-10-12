@@ -63,14 +63,14 @@ use Pandoc;
 # Détection des chemins relatifs au script
 my $script_dir = File::Spec->catdir($RealBin, '..');
 my $config_dir = File::Spec->catdir($script_dir, 'config');
-my $styles_dir = File::Spec->catdir($script_dir, '..', 'styles');
+my $styles_dir = File::Spec->catdir($script_dir, 'styles');
 
 # Configuration par défaut
 my %config = (
     prequestion_string   => '**Parmi les propositions suivantes, laquelle (lesquelles) est (sont) exacte(s) ?**',
     completemulti_string => 'Aucune des propositions ci-dessus n\'est exacte.',
     a_bullet            => '   A.  ',
-    ref_path            => File::Spec->catfile($styles_dir, 'reference_MC_UA.docx'),
+    ref_path            => File::Spec->catfile($styles_dir, 'reference_MC_Arial10.docx'),
     min_pandoc_version  => '1.12',
     expected_answers    => 4,
 );
