@@ -3,7 +3,7 @@
 # Script de test pour mdmc2docx.pl
 # Tests automatisés du convertisseur MC
 
-set -e  # Arrêt en cas d'erreur
+# set -e  # Arrêt en cas d'erreur - Commenté pour permettre l'exécution de tous les tests
 
 # Couleurs pour l'affichage
 RED='\033[0;31m'
@@ -193,10 +193,25 @@ else
 fi
 echo
 
-# Résumé des tests
-echo -e "${BLUE}=== Résumé des tests ===${NC}"
+# Test 10: Vérification de l'espacement entre questions
+echo -e "${YELLOW}Test 10: Espacement des questions (ligne vide entre questions)${NC}"
+((test_count++))
+if [[ -f "$SCRIPT_DIR/check_spacing.sh" ]]; then
+    if "$SCRIPT_DIR/check_spacing.sh" > /dev/null; then
+        ((passed_count++))
+        print_test_result "Espacement des questions"
+    else
+        print_test_result "Espacement des questions" 1
+    fi
+else
+    echo -e "${RED}⚠️ Script check_spacing.sh introuvable${NC}"
+fi
+echo
+
+# Affichage des résultats finaux
+echo -e "${BLUE}=== Résultats des tests ===${NC}"
 echo -e "Tests exécutés: ${test_count}"
-echo -e "Tests réussis:  ${GREEN}${passed_count}${NC}"
+echo -e "Tests réussis:  ${GREEN}$passed_count${NC}"
 echo -e "Tests échoués:  ${RED}$((test_count - passed_count))${NC}"
 
 if [[ $passed_count -eq $test_count ]]; then

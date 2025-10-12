@@ -4,6 +4,11 @@ set -euo pipefail
 # Test: Vérifie qu'une ligne vide sépare chaque question dans le fichier .md4docx
 # Usage: tests/check_spacing.sh [input_md]
 
+# Déterminer le répertoire du projet (parent du répertoire du script)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+cd "$PROJECT_DIR"
+
 INPUT=${1:-examples/exemple_mc.md}
 BASE=$(basename "$INPUT" .md)
 MD4DOCX="examples/${BASE}.md4docx"
