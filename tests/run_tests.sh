@@ -177,6 +177,22 @@ else
 fi
 echo
 
+# Test 9: Configuration de police personnalisée
+echo -e "${YELLOW}Test 9: Police personnalisée (Arial 10)${NC}"
+((test_count++))
+if [[ -f "$EXAMPLES_DIR/exemple_mc.md" ]]; then
+    cd "$EXAMPLES_DIR"
+    if "$SCRIPT_PATH" --font Arial --fontsize 10 --verbose exemple_mc.md > /dev/null 2>&1 && [[ -f "exemple_mc.docx" ]]; then
+        ((passed_count++))
+        print_test_result "Police personnalisée"
+    else
+        print_test_result "Police personnalisée" 1
+    fi
+else
+    echo -e "${RED}⚠️ Fichier exemple_mc.md introuvable${NC}"
+fi
+echo
+
 # Résumé des tests
 echo -e "${BLUE}=== Résumé des tests ===${NC}"
 echo -e "Tests exécutés: ${test_count}"

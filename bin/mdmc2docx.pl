@@ -94,6 +94,8 @@ GetOptions(
     'verbose'     => \$opts{verbose},
     'config=s'    => \$opts{config_file},
     'ref=s'       => \$opts{ref_path},
+    'font=s'      => \$opts{font_name},
+    'fontsize=i'  => \$opts{font_size},
     'help'        => \$opts{help}
 ) or die "Erreur dans les options de ligne de commande. Utilisez --help pour l'aide.\n";
 
@@ -108,6 +110,14 @@ load_config($opts{config_file}) if $opts{config_file};
 
 # Surcharge du chemin de référence si spécifié
 $config{ref_path} = $opts{ref_path} if $opts{ref_path};
+
+# Surcharge des paramètres de police si spécifiés
+if ($opts{font_name} || $opts{font_size}) {
+    $config{font_settings} ||= {};
+    $config{font_settings}->{main_font} = $opts{font_name} if $opts{font_name};
+    $config{font_settings}->{font_size} = $opts{font_size} if $opts{font_size};
+    $config{font_settings}->{use_font_variables} = 1;  # Activer les variables si police spécifiée
+}
 
 # Validation des prérequis et traitement
 eval {
@@ -142,12 +152,16 @@ OPTIONS:
     --verbose           Mode verbeux pour le débogage
     --config <fichier>  Fichier de configuration JSON personnalisé
     --ref <fichier>     Fichier de référence DOCX personnalisé
+    --font <police>     Police principale (ex: Arial, Times, Calibri)
+    --fontsize <taille> Taille de police en points (ex: 10, 11, 12)
     --help              Affiche cette aide
 
 EXEMPLES:
     mdmc2docx.pl examen.md
     mdmc2docx.pl --fid 10 --verbose --keep examen.md
     mdmc2docx.pl --config ma_config.json examen.md
+    mdmc2docx.pl --font Arial --fontsize 10 examen.md
+    mdmc2docx.pl --ref styles/ma_reference.docx examen.md
 
 FORMAT ATTENDU:
     ## [ID_Question]
@@ -538,10 +552,25 @@ sub convert_to_docx {
         -o => $output_path
     );
     
-    # Ajout du fichier de référence si disponible
-    if ($config{ref_path}) {
+    # Ajout des variables de police si configurées
+    if ($config{font_settings} && $config{font_settings}->{use_font_variables}) {
+        if ($config{font_settings}->{main_font}) {
+            push @pandoc_args, '-V', "mainfont=" . $config{font_settings}->{main_font};
+            log_message("Police principale: " . $config{font_settings}->{main_font}, 'INFO');
+        }
+        if ($config{font_settings}->{font_size}) {
+            push @pandoc_args, '-V', "fontsize=" . $config{font_settings}->{font_size} . "pt";
+            log_message("Taille de police: " . $config{font_settings}->{font_size} . "pt", 'INFO');
+        }
+    }
+    
+    # Ajout du fichier de référence si disponible (priorité sur les variables)
+    if ($config{ref_path} && -f $config{ref_path}) {
         push @pandoc_args, '--reference-doc', $config{ref_path};
-        log_message("Utilisation du fichier de référence", 'INFO');
+        log_message("Utilisation du fichier de référence: $config{ref_path}", 'INFO');
+    } elsif ($config{ref_path}) {
+        log_message("Fichier de référence introuvable: $config{ref_path}", 'WARN');
+        log_message("Utilisation des variables de police Pandoc", 'INFO');
     }
     
     eval {
