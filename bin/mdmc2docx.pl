@@ -658,7 +658,7 @@ sub cleanup_temp_file {
 
 sub format_true {
     my ($string) = @_;
-    return '<span style="background-color: yellow;">' . $string . '</span>';  # Surlignage jaune avec background-color
+    return "[$string]{custom-style=\"Highlight\"}";  # Style de surlignage standard Word
 }
 
 sub format_false {
