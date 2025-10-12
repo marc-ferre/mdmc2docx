@@ -443,9 +443,11 @@ sub process_end_answers {
     $$a_id_ref = 0;
     
     my $answers_count = @$answers_string_ref;
-    unless ($answers_count == $config{expected_answers}) {
-        die sprintf "Nombre de réponses incorrect: %d trouvées, %d attendues", 
-            $answers_count, $config{expected_answers};
+    
+    # Validation du nombre de propositions selon les nouvelles règles
+    if ($answers_count < 4 || $answers_count > 5) {
+        die sprintf "Ligne %d: Nombre de propositions invalide: %d trouvées. Attendu: 4 ou 5 propositions", 
+            $line_number, $answers_count;
     }
     
     # Validation des évaluations
@@ -459,8 +461,14 @@ sub process_end_answers {
         die "Toutes les réponses doivent avoir une évaluation (+ ou -)";
     }
     
-    # Génération de la sortie
-    output_question_and_answers($fh, $$questions_ref, $answers_string_ref, $answers_eval_ref, $completemulti_string, $true_count == 0);
+    # Génération de la sortie selon le nombre de propositions
+    if ($answers_count == 4) {
+        # 4 propositions: ajouter completemulti_string
+        output_question_and_answers($fh, $$questions_ref, $answers_string_ref, $answers_eval_ref, $completemulti_string, $true_count == 0);
+    } elsif ($answers_count == 5) {
+        # 5 propositions: ne pas ajouter completemulti_string
+        output_question_and_answers_no_completemulti($fh, $$questions_ref, $answers_string_ref, $answers_eval_ref);
+    }
     
     # Réinitialisation
     $$questions_ref = '';
@@ -488,7 +496,7 @@ sub output_question_and_answers {
         print $fh "\n";
     }
     
-    # Option "Aucune des propositions"
+    # Option "Aucune des propositions" (pour 4 propositions)
     print $fh $bullet;
     if ($completemulti_true) {
         print $fh format_true($completemulti_string);
@@ -496,6 +504,26 @@ sub output_question_and_answers {
         print $fh format_false($completemulti_string);
     }
     print $fh "\n";
+}
+
+sub output_question_and_answers_no_completemulti {
+    my ($fh, $questions_string, $answers_string_ref, $answers_eval_ref) = @_;
+    
+    # Question
+    print $fh "$questions_string\n";
+    
+    # Réponses uniquement (pas de completemulti_string pour 5 propositions)
+    my $bullet = $config{a_bullet};
+    for my $i (0 .. $#{$answers_string_ref}) {
+        print $fh $bullet;
+        
+        if ($answers_eval_ref->[$i] eq '+') {
+            print $fh format_true($answers_string_ref->[$i]);
+        } else {
+            print $fh format_false($answers_string_ref->[$i]);
+        }
+        print $fh "\n";
+    }
 }
 
 sub convert_to_docx {

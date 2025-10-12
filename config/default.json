@@ -4,7 +4,7 @@
     "a_bullet": "   A.  ",
     "ref_path": "/Users/marcferre/Documents/Enseignement/Outils/styles/reference_MC_UA.docx",
     "min_pandoc_version": "1.12",
-    "expected_answers": 4,
+    "expected_answers_note": "Le script accepte maintenant 4 ou 5 propositions (4: ajoute completemulti_string, 5: pas de completemulti_string)",
     "custom_styles": {
         "true_answer_format": "highlight",
         "false_answer_format": "normal"

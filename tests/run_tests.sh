@@ -133,6 +133,50 @@ else
 fi
 echo
 
+# Test 7: MC avec 5 propositions (sans completemulti_string)
+echo -e "${YELLOW}Test 7: MC avec 5 propositions${NC}"
+((test_count++))
+if [[ -f "$EXAMPLES_DIR/exemple_mc_5prop.md" ]]; then
+    cd "$EXAMPLES_DIR"
+    if "$SCRIPT_PATH" --keep --verbose exemple_mc_5prop.md > /dev/null 2>&1 && [[ -f "exemple_mc_5prop.md4docx" ]]; then
+        # Vérifier qu'il n'y a PAS de "Aucune des propositions" dans le fichier généré
+        if ! grep -q "Aucune des propositions" exemple_mc_5prop.md4docx; then
+            ((passed_count++))
+            print_test_result "MC avec 5 propositions"
+        else
+            print_test_result "MC avec 5 propositions" 1
+        fi
+    else
+        print_test_result "MC avec 5 propositions" 1
+    fi
+else
+    echo -e "${RED}⚠️ Fichier exemple_mc_5prop.md introuvable${NC}"
+fi
+echo
+
+# Test 8: Erreur avec nombre invalide de propositions
+echo -e "${YELLOW}Test 8: Erreur avec 3 propositions${NC}"
+((test_count++))
+if [[ -f "$EXAMPLES_DIR/exemple_mc_invalide.md" ]]; then
+    cd "$EXAMPLES_DIR"
+    # Le script doit échouer avec un message d'erreur spécifique
+    if "$SCRIPT_PATH" exemple_mc_invalide.md > /dev/null 2>&1; then
+        print_test_result "Erreur avec 3 propositions" 1
+    else
+        # Vérifier que l'erreur mentionne bien le nombre de propositions
+        error_output=$("$SCRIPT_PATH" exemple_mc_invalide.md 2>&1 || true)
+        if echo "$error_output" | grep -q "Nombre de propositions invalide"; then
+            ((passed_count++))
+            print_test_result "Erreur avec 3 propositions"
+        else
+            print_test_result "Erreur avec 3 propositions" 1
+        fi
+    fi
+else
+    echo -e "${RED}⚠️ Fichier exemple_mc_invalide.md introuvable${NC}"
+fi
+echo
+
 # Résumé des tests
 echo -e "${BLUE}=== Résumé des tests ===${NC}"
 echo -e "Tests exécutés: ${test_count}"

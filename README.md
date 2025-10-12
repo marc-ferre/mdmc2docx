@@ -12,12 +12,14 @@ Un outil en Perl pour convertir des fichiers MC (Questionnaires à Choix Multipl
 ## 🚀 Fonctionnalités
 
 - ✅ **Conversion Markdown → DOCX** avec mise en forme automatique
+- ✅ **Gestion intelligente des propositions** : 4 propositions (+ option "Aucune"), 5 propositions (sans option "Aucune")
+- ✅ **Validation stricte** : Erreur si < 4 ou > 5 propositions par question
 - ✅ **Gestion robuste des erreurs** avec numéros de ligne
 - ✅ **Mode verbeux** pour le débogage
 - ✅ **Configuration flexible** via fichiers JSON
 - ✅ **Numérotation personnalisable** des questions
 - ✅ **Style DOCX personnalisé** avec fichier de référence
-- ✅ **Tests automatisés** inclus
+- ✅ **Tests automatisés** inclus (8 tests complets)
 - ✅ **Documentation complète** et exemples
 
 ## 📋 Prérequis
@@ -116,7 +118,38 @@ Contexte additionnel ou explications
 2. **Énoncé** : Format `### Texte de la question`
 3. **Réponses** : `+` pour correcte, `-` pour incorrecte
 4. **Séparation** : Ligne vide entre chaque question
-5. **Nombre de réponses** : Exactement 4 réponses par question
+
+## 🔢 Gestion des propositions
+
+Le convertisseur gère intelligemment le nombre de propositions par question :
+
+### 4 propositions + option "Aucune"
+```markdown
+## [Q001]
+### Question avec 4 choix ?
++ Bonne réponse
+- Mauvaise réponse 1
+- Mauvaise réponse 2  
+- Mauvaise réponse 3
+```
+**Résultat :** Les 4 propositions + automatiquement "Aucune des propositions ci-dessus n'est exacte"
+
+### 5 propositions (complet)
+```markdown
+## [Q002]
+### Question avec 5 choix ?
++ Bonne réponse 1
++ Bonne réponse 2
+- Mauvaise réponse 1
+- Mauvaise réponse 2
+- Mauvaise réponse 3
+```
+**Résultat :** Seulement les 5 propositions (pas d'option "Aucune")
+
+### Validation stricte
+- ✅ **4 propositions** : Valide (+ option "Aucune" ajoutée)
+- ✅ **5 propositions** : Valide (aucune option ajoutée)  
+- ❌ **< 4 ou > 5** : Erreur avec message explicite
 
 ## ⚙️ Configuration
 
