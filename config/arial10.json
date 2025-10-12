@@ -1,7 +1,7 @@
 {
     "prequestion_string": "**Parmi les propositions suivantes, laquelle (lesquelles) est (sont) exacte(s) ?**",
     "completemulti_string": "Aucune des propositions ci-dessus n'est exacte.",
-    "a_bullet": "A. ",
+    "a_bullet": "   A.  ",
     "min_pandoc_version": "1.12",
     "font_settings": {
         "main_font": "Arial",
