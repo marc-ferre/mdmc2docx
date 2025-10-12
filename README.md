@@ -190,6 +190,7 @@ Créez un fichier JSON pour personnaliser le comportement :
 ### Méthodes pour définir la police
 
 **1. Via les options de ligne de commande (recommandé pour tests)**
+
 ```bash
 # Arial 10pt
 ./bin/mdmc2docx.pl --font Arial --fontsize 10 mon_qcm.md
@@ -202,6 +203,7 @@ Créez un fichier JSON pour personnaliser le comportement :
 ```
 
 **2. Via un fichier de référence DOCX (recommandé pour production)**
+
 ```bash
 # Utilise le style défini dans le fichier DOCX
 ./bin/mdmc2docx.pl --ref styles/reference_MC_Arial10.docx mon_qcm.md
@@ -211,6 +213,7 @@ Créez un fichier JSON pour personnaliser le comportement :
 ```
 
 **3. Via configuration JSON**
+
 ```json
 {
     "font_settings": {
@@ -232,7 +235,7 @@ Créez un fichier JSON pour personnaliser le comportement :
 ### Priorité des paramètres
 
 1. Fichier de référence DOCX (`--ref`) - **Priorité HAUTE**
-2. Options ligne de commande (`--font`, `--fontsize`) 
+2. Options ligne de commande (`--font`, `--fontsize`)
 3. Configuration JSON (`font_settings`)
 4. Style par défaut Pandoc - **Priorité BASSE**
 

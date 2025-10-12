@@ -318,8 +318,18 @@ sub process_qcm_file {
 sub parse_and_convert {
     my ($input_path, $output_path) = @_;
     
-    open my $in_fh, '<:utf8', $input_path 
-        or die "Impossible d'ouvrir $input_path: $!\n";
+    # Tentative d'ouverture avec différents encodages
+    my $in_fh;
+    if (!open $in_fh, '<:encoding(UTF-8)', $input_path) {
+        # Tentative avec latin1 puis conversion
+        if (!open $in_fh, '<:encoding(latin1)', $input_path) {
+            die "Impossible d'ouvrir $input_path avec aucun encodage: $!\n";
+        } else {
+            log_message("Fichier ouvert avec encodage latin1", 'WARN');
+        }
+    } else {
+        log_message("Fichier ouvert avec encodage UTF-8", 'INFO');
+    }
     
     open my $out_fh, '>:utf8', $output_path
         or die "Impossible de créer $output_path: $!\n";
@@ -346,11 +356,22 @@ sub parse_and_convert {
     my $line_number = 0;
     while (my $line = <$in_fh>) {
         $line_number++;
-        chomp $line;
-        $line =~ s/^\s+|\s+$//g;    # Trim
         
-        if ($opts{no_final_dot}) {
-            $line =~ s/\.$//g;
+        # Gestion robuste de l'encodage
+        eval {
+            chomp $line;
+            # Nettoyer les caractères de contrôle problématiques
+            $line =~ s/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]//g;
+            $line =~ s/^\s+|\s+$//g;    # Trim
+            
+            if ($opts{no_final_dot}) {
+                $line =~ s/\.$//g;
+            }
+        };
+        if ($@) {
+            log_message("Ligne $line_number: Caractère invalide détecté et ignoré", 'WARN');
+            $warnings_count++;
+            next;
         }
         
         eval {
