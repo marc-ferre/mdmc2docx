@@ -36,6 +36,11 @@ test:
 	@echo "🧪 Lancement des tests..."
 	@$(TESTS_DIR)/run_tests.sh
 
+.PHONY: test-md-spacing
+test-md-spacing:
+	@echo "🧪 Vérification de l'espacement des questions (md spacing)..."
+	@$(TESTS_DIR)/check_spacing.sh
+
 example:
 	@echo "📝 Conversion de l'exemple..."
 	@if [ -f "$(EXAMPLES_DIR)/exemple_mc.md" ]; then \
