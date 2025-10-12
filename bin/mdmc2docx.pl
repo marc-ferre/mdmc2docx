@@ -106,8 +106,8 @@ if ($opts{help} || !@ARGV) {
     exit 0;
 }
 
-# Chargement de la configuration (arial10.json par défaut, ou personnalisée si spécifiée)
-my $config_to_load = $opts{config_file} || 'arial10.json';
+# Chargement de la configuration (highlight.json par défaut, ou personnalisée si spécifiée)
+my $config_to_load = $opts{config_file} || 'highlight.json';
 load_config($config_to_load);
 
 # Surcharge du chemin de référence si spécifié
@@ -152,7 +152,7 @@ OPTIONS:
     --nostop <0|1>      Supprime le point final (défaut: 1)  
     --keep              Conserve le fichier Markdown temporaire
     --verbose           Mode verbeux pour le débogage
-    --config <fichier>  Fichier de configuration JSON (défaut: arial10.json)
+    --config <fichier>  Fichier de configuration JSON (défaut: highlight.json)
     --ref <fichier>     Fichier de référence DOCX personnalisé
     --font <police>     Police principale (ex: Arial, Times, Calibri)
     --fontsize <taille> Taille de police en points (ex: 10, 11, 12)
@@ -210,9 +210,9 @@ sub load_config {
     
     # Vérification de l'existence du fichier
     unless (-f $config_file) {
-        # Si c'est le fichier par défaut (arial10.json) et qu'il n'existe pas, continuer avec config par défaut
-        if ($config_file =~ /arial10\.json$/) {
-            log_message("Configuration par défaut arial10.json introuvable, utilisation de la configuration intégrée", 'WARN');
+        # Si c'est le fichier par défaut (highlight.json) et qu'il n'existe pas, continuer avec config par défaut
+        if ($config_file =~ /highlight\.json$/) {
+            log_message("Configuration par défaut highlight.json introuvable, utilisation de la configuration intégrée", 'WARN');
             return;
         } else {
             die "Fichier de configuration introuvable: $config_file\n";
