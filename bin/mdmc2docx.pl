@@ -312,7 +312,7 @@ sub process_qcm_file {
     my ($temp_path, $output_path) = setup_output_paths($input_path);
     
     # Parsing du contenu
-    my ($questions_count, $answers_count, $warnings_count) = parse_and_convert($input_path, $temp_path);
+    my ($questions_count, $answers_count, $warnings_count, $total_true_answers, $total_false_answers) = parse_and_convert($input_path, $temp_path);
     
     # Conversion avec Pandoc
     convert_to_docx($temp_path, $output_path);
@@ -327,6 +327,7 @@ sub process_qcm_file {
     print "✅ Conversion terminée avec succès !\n";
     print "📄 Fichier généré: $output_path\n";
     print "📊 Statistiques: $questions_count questions, $answers_count réponses";
+    print " (✅ $total_true_answers vraies, ❌ $total_false_answers fausses)";
     print $warnings_count > 0 ? ", $warnings_count avertissements\n" : "\n";
     print "\n";
 }
@@ -362,6 +363,7 @@ sub parse_and_convert {
     
     # Statistiques
     my ($questions_count, $answers_count, $warnings_count) = (0, 0, 0);
+    my ($total_true_answers, $total_false_answers) = (0, 0);
     
     # Préparation des chaînes
     my $completemulti_string = $config{completemulti_string};
@@ -403,7 +405,7 @@ sub parse_and_convert {
             }
             elsif ($line =~ m/^[_\s]*$/) {
                 if ($a_into) {
-                    process_end_answers($out_fh, \$a_into, \$a_id, \$questions_string, \@answers_string, \@answers_eval, \$questions_count, $completemulti_string, $line_number);
+                    process_end_answers($out_fh, \$a_into, \$a_id, \$questions_string, \@answers_string, \@answers_eval, \$questions_count, $completemulti_string, $line_number, \$total_true_answers, \$total_false_answers);
                 }
             }
             elsif ($q_into && !$a_into) {
@@ -436,10 +438,10 @@ sub parse_and_convert {
     close $in_fh;
     close $out_fh;
     
-    log_message(sprintf("Statistiques: %d questions, %d réponses, %d avertissements", 
-        $questions_count, $answers_count, $warnings_count), 'INFO');
+    log_message(sprintf("Statistiques: %d questions, %d réponses (%d vraies, %d fausses), %d avertissements", 
+        $questions_count, $answers_count, $total_true_answers, $total_false_answers, $warnings_count), 'INFO');
     
-    return ($questions_count, $answers_count, $warnings_count);
+    return ($questions_count, $answers_count, $warnings_count, $total_true_answers, $total_false_answers);
 }
 
 sub write_header {
@@ -490,7 +492,7 @@ sub process_answer {
 }
 
 sub process_end_answers {
-    my ($fh, $a_into_ref, $a_id_ref, $questions_ref, $answers_string_ref, $answers_eval_ref, $questions_count_ref, $completemulti_string, $line_number) = @_;
+    my ($fh, $a_into_ref, $a_id_ref, $questions_ref, $answers_string_ref, $answers_eval_ref, $questions_count_ref, $completemulti_string, $line_number, $total_true_ref, $total_false_ref) = @_;
     
     $$a_into_ref = 0;
     $$a_id_ref = 0;
@@ -513,6 +515,10 @@ sub process_end_answers {
     unless ($true_count + $false_count == $answers_count) {
         die "Toutes les réponses doivent avoir une évaluation (+ ou -)";
     }
+    
+    # Mise à jour des compteurs globaux de vraies/fausses réponses
+    $$total_true_ref += $true_count;
+    $$total_false_ref += $false_count;
     
     # Génération de la sortie selon le nombre de propositions
     if ($answers_count == 4) {
