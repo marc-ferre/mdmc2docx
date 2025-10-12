@@ -124,6 +124,7 @@ Contexte additionnel ou explications
 Le convertisseur gère intelligemment le nombre de propositions par question :
 
 ### 4 propositions + option "Aucune"
+
 ```markdown
 ## [Q001]
 ### Question avec 4 choix ?
@@ -132,9 +133,11 @@ Le convertisseur gère intelligemment le nombre de propositions par question :
 - Mauvaise réponse 2  
 - Mauvaise réponse 3
 ```
+
 **Résultat :** Les 4 propositions + automatiquement "Aucune des propositions ci-dessus n'est exacte"
 
 ### 5 propositions (complet)
+
 ```markdown
 ## [Q002]
 ### Question avec 5 choix ?
@@ -144,9 +147,11 @@ Le convertisseur gère intelligemment le nombre de propositions par question :
 - Mauvaise réponse 2
 - Mauvaise réponse 3
 ```
+
 **Résultat :** Seulement les 5 propositions (pas d'option "Aucune")
 
 ### Validation stricte
+
 - ✅ **4 propositions** : Valide (+ option "Aucune" ajoutée)
 - ✅ **5 propositions** : Valide (aucune option ajoutée)  
 - ❌ **< 4 ou > 5** : Erreur avec message explicite

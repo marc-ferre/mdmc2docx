@@ -7,6 +7,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [2.1.1] - 2025-10-12
 
 ### ✨ Ajouté
+
 - 🎯 **Gestion intelligente du nombre de propositions** :
   - **4 propositions** : Ajoute automatiquement l'option "Aucune des propositions ci-dessus n'est exacte"
   - **5 propositions** : Utilise seulement les 5 propositions (pas d'option "Aucune")
@@ -23,8 +24,9 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
   - `examples/exemple_mc_invalide.md` : Exemple pour tester validation d'erreur
 
 ### 🔧 Modifié
+
 - **Logique de validation** : Remplace validation fixe par validation flexible 4-5 propositions
-- **Architecture du code** : 
+- **Architecture du code** :
   - Nouvelle fonction `output_question_and_answers_no_completemulti()` pour questions à 5 propositions
   - Logique conditionnelle dans `process_end_answers()` selon le nombre de propositions
   - Messages d'erreur améliorés avec numéros de ligne précis
@@ -33,6 +35,7 @@ Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [2.1.0] - 2025-10-12
 
 ### ✨ Première release publique
+
 - 🎉 **Publication GitHub officielle** avec release v2.1.0
 - 🔄 **CI/CD complet** : GitHub Actions, tests sur Ubuntu/macOS, Perl 5.20/5.30/5.32
 - 📋 **Templates GitHub** : Issues (bugs/features), guide de contribution
