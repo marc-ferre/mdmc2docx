@@ -1,6 +1,6 @@
 # Guide de Contribution
 
-Merci de votre intérêt pour contribuer à mdmc2docx ! 
+Merci de votre intérêt pour contribuer à mdmc2docx !
 
 ## 🚀 Comment contribuer
 
@@ -27,10 +27,12 @@ Merci de votre intérêt pour contribuer à mdmc2docx !
 2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/ma-fonctionnalite`)
 3. Effectuez vos modifications
 4. **Testez** vos changements :
+
    ```bash
    make test
    make example
    ```
+
 5. Committez vos modifications (`git commit -am 'Ajout de ma fonctionnalité'`)
 6. Poussez vers votre branche (`git push origin feature/ma-fonctionnalite`)
 7. Créez une **Pull Request**
@@ -38,17 +40,20 @@ Merci de votre intérêt pour contribuer à mdmc2docx !
 ## 📋 Standards de code
 
 ### Style Perl
+
 - Utilisez `strict` et `warnings`
 - Indentation : 4 espaces
 - Commentaires en français pour ce projet
 - Documentation POD pour les fonctions principales
 
 ### Tests
+
 - Tous les tests doivent passer : `make test`
 - Ajoutez des tests pour les nouvelles fonctionnalités
 - Testez sur différents types de fichiers MC
 
 ### Documentation
+
 - Mettez à jour le README.md si nécessaire
 - Ajoutez une entrée dans CHANGELOG.md
 - Documentez les nouvelles options dans l'aide (`--help`)
@@ -88,6 +93,7 @@ mdmc2docx/
 ## 📞 Contact
 
 Pour toute question, n'hésitez pas à :
+
 - Ouvrir une issue sur GitHub
 - Contacter Marc FERRE (Université d'Angers)
 
