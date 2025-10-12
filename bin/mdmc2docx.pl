@@ -604,15 +604,15 @@ sub convert_to_docx {
     # Gestion des polices - approche simplifiée et robuste
     my $use_reference_file = 0;
     
-    # Priorité 1: Variables de police Pandoc (toujours appliquées si configurées)
+    # Note: Les variables mainfont et fontsize ne fonctionnent pas pour DOCX
+    # La police doit être définie dans le fichier de référence DOCX
     if ($config{font_settings}) {
+        log_message("Paramètres de police configurés (appliqués via fichier de référence DOCX)", 'INFO');
         if ($config{font_settings}->{main_font}) {
-            push @pandoc_args, '-V', "mainfont=" . $config{font_settings}->{main_font};
-            log_message("Police principale forcée: " . $config{font_settings}->{main_font}, 'INFO');
+            log_message("Police demandée: " . $config{font_settings}->{main_font}, 'INFO');
         }
         if ($config{font_settings}->{font_size}) {
-            push @pandoc_args, '-V', "fontsize=" . $config{font_settings}->{font_size} . "pt";
-            log_message("Taille de police forcée: " . $config{font_settings}->{font_size} . "pt", 'INFO');
+            log_message("Taille demandée: " . $config{font_settings}->{font_size} . "pt", 'INFO');
         }
     }
     

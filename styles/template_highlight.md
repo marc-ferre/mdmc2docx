@@ -1,12 +1,15 @@
 # Template pour style de surlignage
 
 ## Texte normal
+
 Ceci est du texte normal.
 
 ## Texte à surligner
+
 [Texte surligné en jaune]{custom-style="GoodAnswer"}
 
 ## Autre exemple
+
 Réponse normale et [bonne réponse]{custom-style="GoodAnswer"} dans le même paragraphe.
 
 ### Questions exemple
