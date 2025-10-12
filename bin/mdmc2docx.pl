@@ -106,8 +106,9 @@ if ($opts{help} || !@ARGV) {
     exit 0;
 }
 
-# Chargement de la configuration personnalisée si spécifiée
-load_config($opts{config_file}) if $opts{config_file};
+# Chargement de la configuration (arial10.json par défaut, ou personnalisée si spécifiée)
+my $config_to_load = $opts{config_file} || 'arial10.json';
+load_config($config_to_load);
 
 # Surcharge du chemin de référence si spécifié
 $config{ref_path} = $opts{ref_path} if $opts{ref_path};
@@ -151,17 +152,17 @@ OPTIONS:
     --nostop <0|1>      Supprime le point final (défaut: 1)  
     --keep              Conserve le fichier Markdown temporaire
     --verbose           Mode verbeux pour le débogage
-    --config <fichier>  Fichier de configuration JSON personnalisé
+    --config <fichier>  Fichier de configuration JSON (défaut: arial10.json)
     --ref <fichier>     Fichier de référence DOCX personnalisé
     --font <police>     Police principale (ex: Arial, Times, Calibri)
     --fontsize <taille> Taille de police en points (ex: 10, 11, 12)
     --help              Affiche cette aide
 
 EXEMPLES:
-    mdmc2docx.pl examen.md
+    mdmc2docx.pl examen.md                                    (Arial 10pt par défaut)
     mdmc2docx.pl --fid 10 --verbose --keep examen.md
-    mdmc2docx.pl --config ma_config.json examen.md
-    mdmc2docx.pl --font Arial --fontsize 10 examen.md
+    mdmc2docx.pl --config ma_config.json examen.md           (config personnalisée)
+    mdmc2docx.pl --font Times --fontsize 12 examen.md        (police en ligne de commande)
     mdmc2docx.pl --ref styles/ma_reference.docx examen.md
 
 FORMAT ATTENDU:
@@ -207,8 +208,15 @@ sub load_config {
         $config_file = File::Spec->catfile($config_dir, $config_file);
     }
     
+    # Vérification de l'existence du fichier
     unless (-f $config_file) {
-        die "Fichier de configuration introuvable: $config_file\n";
+        # Si c'est le fichier par défaut (arial10.json) et qu'il n'existe pas, continuer avec config par défaut
+        if ($config_file =~ /arial10\.json$/) {
+            log_message("Configuration par défaut arial10.json introuvable, utilisation de la configuration intégrée", 'WARN');
+            return;
+        } else {
+            die "Fichier de configuration introuvable: $config_file\n";
+        }
     }
     
     local $/;
