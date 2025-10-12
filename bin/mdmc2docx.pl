@@ -596,7 +596,7 @@ sub convert_to_docx {
     
     my @pandoc_args = (
         $temp_path,
-        -f => 'markdown',
+        -f => 'markdown+raw_html',
         -t => 'docx+styles',
         -o => $output_path
     );
@@ -658,7 +658,7 @@ sub cleanup_temp_file {
 
 sub format_true {
     my ($string) = @_;
-    return ">>> **$string** <<<";  # Gras avec marqueurs ASCII simples
+    return '<span style="background-color: yellow;">' . $string . '</span>';  # Surlignage jaune avec background-color
 }
 
 sub format_false {
