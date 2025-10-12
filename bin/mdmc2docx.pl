@@ -73,6 +73,11 @@ my %config = (
     ref_path            => File::Spec->catfile($styles_dir, 'reference_MC_Arial10.docx'),
     min_pandoc_version  => '1.12',
     expected_answers    => 4,
+    font_settings       => {
+        main_font => 'Arial',
+        font_size => 10,
+        use_font_variables => 0
+    },
 );
 
 # Variables de ligne de commande
