@@ -548,6 +548,8 @@ sub output_question_and_answers {
         print $fh format_false($completemulti_string);
     }
     print $fh "\n";
+    # Ligne vide séparant les questions
+    print $fh "\n";
 }
 
 sub output_question_and_answers_no_completemulti {
@@ -568,6 +570,8 @@ sub output_question_and_answers_no_completemulti {
         }
         print $fh "\n";
     }
+    # Ligne vide séparant les questions
+    print $fh "\n";
 }
 
 sub convert_to_docx {
