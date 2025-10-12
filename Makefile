@@ -78,6 +78,11 @@ dev-clean:
 	@find . -name "*.docx" -delete
 	@find . -name "*.md4docx" -delete
 
+# Tests pour CI (non-interactifs)
+test-ci:
+	@echo "🧪 Lancement des tests CI (non-interactifs)..."
+	@export CI=true && $(TESTS_DIR)/run_tests.sh
+
 info:
 	@echo "📋 Informations sur le projet:"
 	@echo "   Script principal: $(SCRIPT_PATH)"

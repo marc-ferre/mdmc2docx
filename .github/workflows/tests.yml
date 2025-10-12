@@ -34,16 +34,14 @@ jobs:
     - name: Install Perl dependencies
       run: |
         cpanm --installdeps --notest .
-        cpanm Pandoc JSON::PP
+        cpanm JSON::PP
 
     - name: Check script syntax
       run: |
         perl -c bin/mdmc2docx.pl
 
-    - name: Run tests
-      run: |
-        chmod +x tests/run_tests.sh
-        make test
+    - name: Run Tests
+      run: make test-ci
 
     - name: Test example conversion
       run: |

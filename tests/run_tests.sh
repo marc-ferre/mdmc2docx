@@ -224,11 +224,19 @@ fi
 
 # Nettoyage optionnel
 echo
-read -p "Supprimer les fichiers de test générés? (y/N): " cleanup
-if [[ $cleanup == "y" || $cleanup == "Y" ]]; then
-    cd "$EXAMPLES_DIR"
+if [ "$CI" = "true" ] || [ "$GITHUB_ACTIONS" = "true" ]; then
+    # En environnement CI, nettoyage automatique
+    cd "$EXAMPLES_DIR" || exit 1
     rm -f exemple_mc.docx exemple_mc.md4docx
-    echo -e "${GREEN}🧹 Fichiers de test supprimés${NC}"
+    echo -e "${GREEN}🧹 Fichiers de test supprimés automatiquement (CI)${NC}"
+else
+    # En environnement local, demander confirmation
+    read -p "Supprimer les fichiers de test générés? (y/N): " cleanup
+    if [[ $cleanup == "y" || $cleanup == "Y" ]]; then
+        cd "$EXAMPLES_DIR" || exit 1
+        rm -f exemple_mc.docx exemple_mc.md4docx
+        echo -e "${GREEN}🧹 Fichiers de test supprimés${NC}"
+    fi
 fi
 
 echo -e "\n${BLUE}Tests terminés${NC}"
