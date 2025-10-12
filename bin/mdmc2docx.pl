@@ -652,7 +652,7 @@ sub cleanup_temp_file {
 
 sub format_true {
     my ($string) = @_;
-    return "> $string";
+    return "**$string**";  # Gras - plus visible et universellement supporté
 }
 
 sub format_false {
