@@ -1,0 +1,381 @@
+# MF, UE1, Examen 3
+
+
+## [vir]
+### Concernant le génome des virus :
++ Le génome du virus de l’hépatite D (VHD) a une taille d’environ 1 700 nucléotides (nt).
+- Le génome du virus de l’immunodéficience humaine (VIH) comporte environ 1 000 gènes.
+- Le génome du Mimivirus a une taille d’environ 12 kilopaires de bases (kb).
+- Le virus de l’immunodéficience humaine (VIH) est considéré comme le virus ayant le plus petit génome.
+
+
+
+## [proc]
+### Concernant le génome des procaryotes :
++ Le génome de *Mycobacterium tuberculosis* (agent responsable de la tuberculose) a une taille d’environ 5 mégapaires de bases (Mb).
+- Le génome de *Mycoplasma genitalium* comporte environ 4 300 gènes.
++ *Mycoplasma genitalium* est considérée comme la bactérie vivante ayant le plus petit génome.
+- *Escherichia coli* est considérée comme la bactérie vivante ayant le plus grand génome.
+
+
+
+## [euc]
+### Concernant les génomes des eucaryotes :
++ Le génome de *Saccharomyces cerevisiae* (levure de boulanger) comporte environ 6 000 gènes.
++ Le génome de *Caenorhabditis elegans* (ver) a une taille d’environ 97 mégapaires de bases (Mb).
++ Le génome d’*Arabidopsis thaliana* (plante) a une taille d’environ 135 mégapaires de bases (Mb).
++ *Homo sapiens* (humain) et *Mus musculus* (souris) possèdent une taille de génome proche.
+
+
+
+## [proc_archi]
+### En ce qui concerne l’architecture des génomes procaryotes :
++ Le chromosome est généralement circulaire.
++ Certains génomes peuvent être plus petits que 1 mégapaire de bases (Mb) chez certaines espèces.
++ Des plasmides peuvent exister en même temps que le chromosome.
+- Tous les procaryotes ont plusieurs chromosomes linéaires.
+
+
+
+## [hist80]
+### Au cours des années 1980 :
+- La structure de l’ADN a été découverte.
+- Les premières méthodes de séquençage de l’ADN sont apparues.
+- Le projet de séquençage du génome humain a été initié.
+- La première ébauche de la séquence de référence du génome humain a été publiée.
+
+
+________
+
+## [genome]
+### Concernant le génome humain :
+- Le génome mitochondrial est constitué d’un ADN simple brin circulaire d’environ 6 500 nucléotides.
+- Le génome nucléaire comporte environ 10 000 gènes codant des protéines (ARNm).
++ La chromatine est constituée d’un complexe d’ADN et de protéines histones.
+- L’euchromatine est caractérisée par des gènes inactifs.
+
+
+
+## [geneprot]
+### Concernant les gènes protéiques humains :
++ Ils comportent en moyenne environ 8 introns par gène.
+- La taille moyenne de leur partie codante est d’environ 150 paires de bases (pb).
+- La taille moyenne d’un exon est d’environ 1 300 paires de bases (pb).
+- La présence d’une région 3′ non traduite (3′-UTR) est très rare.
+
+
+
+## [pseudo]
+### Concernant les pseudogènes composant le génome humain :
++ Ils sont issus de la duplication de gènes ancestraux.
++ Ils peuvent être issus de la duplication de gènes mitochondriaux ancestraux.
++ Ils peuvent être issus de la duplication de gènes nucléaires ancestraux.
++ Leur nombre est estimé à environ 14 000.
+
+
+
+## [reptandem]
+### Concernant l’ADN répété en tandem composant le génome humain :
++ Il contient les gènes à ARN ribosomiques (ARNr).
++ Les motifs satellites peuvent avoir une taille de 5 paires de bases (pb).
+- Les motifs satellites occupent environ 27 % du génome humain.
+- Les motifs minisatellites peuvent avoir une taille de 5 paires de bases (pb).
+
+
+
+## [adnrepdisp]
+### Concernant l’ADN répété dispersé composant le génome humain :
+- Il contient les gènes à ARN messager (ARNm).
+- Il représente environ un quart du génome.
+- Les éléments qui se transposent à travers un intermédiaire ARN sont dits de classe II (deux).
++ Les transposons sont des éléments de classe II (deux).
+
+
+________
+
+## [siteweb-ucsc]
+### Concernant la capture d’écran du site web UCSC Genome Browser ci-dessous :
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/BdD/UCSC_Genome-CFTR.png)
+
+- Elle affiche le gène *ENSG0000008362* humain.
+- La taille du gène affiché est inférieure à la taille moyenne des gènes protéiques humains.
++ Les informations affichées permettent d’affirmer que la séquence de ce gène contient des régions hautement conservées entre les génomes de vertébrés.
++ Les informations affichées permettent d’affirmer que ce gène contient des séquences répétées.
+
+
+
+## [siteweb-omim]
+### Concernant la capture d’écran du site web OMIM ci-dessous :
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/BdD/OMIM-613004,HTT.png)
+
+- « 143100 » est le numéro d’accès du gène *HTT* dans la base de données OMIM.
++ Cette page web concerne un gène.
++ Des mutations du gène *HTT* sont associées à la maladie de Huntington (*Huntington disease*).
++ Le syndrome Lopes-Maciel-Rodan (*Lopes-Maciel-Rodan syndrome*) est une maladie à transmission récessive.
+
+
+
+## [align-seq]
+### Concernant l’alignement de séquences (ou comparaison de séquences) :
++ L’homologie est un terme qui indique une parenté évolutive entre séquences.
++ Le terme similarité peut s’employer dans le cas de séquences protéiques, lorsqu’un acide aminé donné sur une séquence correspond à un acide aminé différent sur l’autre séquence, mais dont les propriétés physico-chimiques sont suffisamment semblables pour que la substitution puisse avoir lieu sans engendrer de changement notable des propriétés de la protéine.
++ On peut parler de pourcentage d’identité entre deux séquences.
+- On peut parler de pourcentage d’homologie entre deux séquences.
+
+
+
+## [mat-scores]
+### La matrice BLOSUM62 est donnée ci-dessous. Concernant les matrices de scores :
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/blastp/Blosum62-dayhoff-ordering.png)
+
+- Elles sont également appelées matrices de conservation.
+- Dans les matrices de scores de remplacement des acides aminés, les valeurs positives indiquent des paires d’acides aminés qui se remplacent rarement au cours de l’évolution.
++ Selon la matrice BLOSUM62, la substitution de la valine (V) par la leucine (L) est conservative.
++ Selon la matrice BLOSUM62, la sérine (S) est un acide aminé fréquent.
+
+
+________
+ 
+[comment]: <> ## [blastnaln]
+[comment]: <> ### Concernant l’alignement obtenu avec le programme bio-informatique blastn présenté ci-dessous :
+[comment]: <> 
+[comment]: <> ![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/blastn/blastn-2.3.png)
+[comment]: <> 
+[comment]: <> + Il s’agit d’un alignement par paires.
+[comment]: <> - Il y a 94 % de similarité.
+[comment]: <> - Il n’est pas significatif.
+[comment]: <> - La séquence qui a correspondu dans la base de données cible a une taille de 50 nucléotides. -->
+
+________
+
+## [snp-pop]
+### Concernant l’ensemble des variations de séquence ponctuelles (SNP) répertoriées dans la population humaine :
+- Ce sont des variations du nombre de répétitions des motifs répétés en tandem.
+- Leur nombre est estimé à environ 100 millions.
+- Elles représentent une densité moyenne d’un SNP tous les 10 millions de nucléotides.
++ Elles sont répertoriées dans la base de données dbSNP.
+
+
+
+## [snp-indiv]
+### En ce qui concerne les variations ponctuelles (SNP) observées lorsqu’on compare la séquence du génome d’un individu humain à la séquence de référence du génome humain :
+- Elles ne sont pas localisées dans les gènes.
++ Elles peuvent être localisées dans les introns.
+- Leur nombre est estimé à environ 10 millions.
+- Elles sont réparties de manière régulière.
+
+
+
+## [polyrepet]
+### Concernant les polymorphismes de répétition dans la séquence du génome humain :
+- Ce sont des variations du nombre de copies d’un même gène ou d’un segment chromosomique dans le génome.
+- Ce sont les variations de séquence les plus fréquentes.
+- Ils sont répertoriés dans la base de données *Database for Genomic Variants* (DGV).
+- Ils sont répertoriés dans la base de données dbSNP.
+
+
+
+## [cnv]
+### Concernant les polymorphismes de variabilité du nombre de copies (CNV) dans la séquence du génome humain :
+- Ce sont des variations du nombre de répétitions des motifs répétés en tandem.
++ Il peut s’agir de délétions de séquences dont la longueur varie de 1 kilopaire de bases (kb) à plusieurs mégapaires de bases (Mb).
++ Il peut s’agir de duplications de séquences dont la longueur varie de 1 kilopaire de bases (kb) à plusieurs mégapaires de bases (Mb).
+- Il peut s’agir de la répétition du motif à trois paires de bases CAG.
+
+
+
+## [haplo]
+### Concernant les haplotypes du génome humain :
++ Ils tirent leur origine des processus de recombinaison lors de la méiose.
++ Au cours de l’histoire migratoire humaine, la fréquence des haplotypes a varié d’un continent à l’autre par le jeu du hasard et de la sélection naturelle.
++ Un haplotype est un regroupement de variations de séquence ponctuelles (SNP) transmises ensemble.
+- Les haplotypes des populations africaines tendent à être plus longs que ceux des populations européennes.
+
+
+
+## [cpg]
+### Concernant les îlots CpG du génome humain :
+- Les îlots CpG sont surtout présents dans les zones où la méthylation est fréquente.
+- La désamination d’une cytosine non méthylée produit une thymine.
+- La désamination spontanée 5-méthycytosine produit un uracile.
++ Deux tiers (⅔) des SNP sont des substitutions d’une cytosine par une thymine (transitions C→T).
+
+
+________
+
+## [micromut]
+### Concernant la mutation dans une séquence codante du chromosome 12 humain schématisée ci-dessous :
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/Micromutation/Isosemantique.png)
+
++ C’est une substitution d’un nucléotide.
++ C’est une mutation isosémantique.
+- C’est une mutation non-sens.
++ C’est une mutation ponctuelle.
+
+
+
+## [macromut1]
+### Concernant la mutation dans le chromosome humain schématisée ci-dessous :
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/Macromutation/Délétion.png)
+
+- C’est une translocation.
+- C’est une mutation ponctuelle.
+- C’est une micromutation.
++ C’est une macromutation.
+
+
+
+## [var]
+### Concernant les variations de séquence de l’ADN :
+- Les maladies à transmission récessive s’expriment lorsqu’un seul allèle est muté.
+- Les variations de séquence pathogènes « gain de fonction » conduisent systématiquement à des pathologies à transmission récessive.
+- Les variations de séquence pathogènes « perte de fonction » ne peuvent jamais conduire à des pathologies à transmission récessive.
+- Si une variation de séquence pathogène « perte de fonction » est homozygote, la moitié de l’activité de la protéine est perdue.
+
+
+________
+
+## [blastpres-HBA-1]
+### Concernant le rapport obtenu avec l’outil bio-informatique BLAST dont une partie est présentée ci-dessous (figure 1 ; les codes de certains noms d’espèces employés sont donnés dans le tableau 1) :
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/blastp/blastp-HBA.1.png)
+
+**Figure 1.** Partie du rapport BLAST.
+
+| Code | Nom officiel (scientifique)| Nom commun.  |
+|:-----|:---------------------------|:-------------|
+|HUMAN |*Homo sapiens*              | Humain       |
+|PILBA |*Piliocolobus badius*       | Colobe rouge |
+
+**Tableau 1.** Codes de quelques noms d’espèces.
+
++ Tous les alignements du rapport BLAST sont significatifs.
+- Il y a plusieurs « meilleurs alignements ».
+- La base de données cible a une taille de 139 séquences.
+- La base de données cible est nommée « `SEQUENCE A RECHERCHER` ».
+
+
+
+## [blastpaln-HBA-2]
+### Concernant les alignements obtenus avec le programme bio-informatique blastp présentés ci-dessous (figure 1 et 2 ; les codes de certains noms d’espèces employés sont donnés dans le tableau 1) :
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/blastp/blastp-HBA.2.png)
+
+**Figure 1.** Partie du rapport BLAST (1/2).
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/blastp/blastp-HBA.3.png)
+
+**Figure 2.** Partie du rapport BLAST (2/2).
+
+| Code | Nom officiel (scientifique)| Nom commun.  |
+|:-----|:---------------------------|:-------------|
+|HUMAN |*Homo sapiens*              | Humain       |
+|PILBA |*Piliocolobus badius*       | Colobe rouge |
+
+**Tableau 1.** Codes de quelques noms d’espèces.
+
+- Il y a 92 % d’identité entre la séquence requête et celle de la protéine *Hemoglobin subunit alpha* chez le colobe rouge.
++ Ils permettent d’affirmer que la séquence requête et celle de le colobe rouge sont homologues.
++ Ils permettent d’affirmer que la séquence requête et la séquence humaine sont homologues.
+- Les acides aminés similaires (similarités) sont indiqués par le caractère « `S` ».
+
+
+
+## [consaa-cftr]
+Dans le cadre du diagnostic moléculaire d’une maladie génétique, le gène codant la protéine CFTR (*Cystic fibrosis transmembrane conductance regulator*) a été exploré chez un patient. 
+Une variation de la séquence a été trouvée qui a pour conséquence 
+`p.M929L`.
+
+Une étude de la conservation inter-espèces des acides aminés a été réalisée dont un extrait du résultat est donné dans la figure 1. 
+Les codes des noms d’espèces employés sont donnés dans le tableau 1.
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/Clustal-1/CFTR.16.png)
+
+**Figure 1.** Partie du rapport Clustal de l’étude de la conservation inter-espèces des acides aminés pour la protéine CFTR.
+
+| Code  | Nom officiel (scientifique)| Nom commun             |
+|:------|:---------------------------|:-----------------------|
+| BOVIN | *Bos taurus*	             | Bœuf                   |
+| CANLF | *Canis lupus familiaris*	 | Chien                  |
+| CAVPO | *Cavia porcellus*          | Cochon d’Inde          |
+| DANRE | *Danio rerio*              | Poisson-zèbre          |
+| HORSE | *Equus caballus*           | Cheval                 |
+| HUMAN | *Homo sapiens*             | Homme                  |
+| MOUSE | *Mus musculus*             | Souris                 |
+| ORNAN | *Ornithorhynchus anatinus* | Ornithorynque          |
+| PONAB | *Pongo abelii*             | Orang-outan de Sumatra |
+| PIG   | *Sus scrofa*	             | Sanglier               |
+| RABIT	| *Oryctolagus cuniculus*	 | Lapin commun           |
+| SHEEP | *Ovis aries*               | Mouton                 |
+| XENLA | *Xenopus laevis*           | Xénope lisse           |
+
+**Tableau 1.** Codes de quelques noms d’espèces.
+
+### En se basant uniquement sur l’étude de la conservation inter-espèces :
+
+- La variation de séquence est prédite pathogène.
+- Il y a une erreur dans le nom de la variation de séquence.
++ À la position de la variation de séquence, tous les acides aminés alignés sont similaires.
++ Une position avec un caractère « `*`» indique que tous les acides aminés alignés sont identiques.
+
+
+
+## [nomenclature]
+### En ce qui concerne la nomenclature pour la description des variations de séquence (HGVS) :
+- `c.123A>G` désigne une insertion.
+- `c.[123A>G];[456C>T]` désigne la combinaison de variants sur un même allèle.
++ `c.*143A>T` désigne un variant en 3' de la région codante des protéines (3' du stop).
+- `p.0` indique un effet attendu, mais difficile à prévoir.
+
+
+
+## [interpret-NR2F1-883T-C]
+Une ophtalmologue suspecte une neuropathie optique héréditaire (NOH) chez un individu.
+Un diagnostic moléculaire en explorant un panel de gènes impliqués dans les NOH a été réalisé avec les résultats suivants (en anglais) :
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/Interpretation/NR2F1-883T-C.png)
+
+### En se basant uniquement sur ces résultats :
+- Un variant non-sens hétérozygote a été identifié.
+- Ce variant est classé comme pathogène.
+- Ce variant est fréquent dans la population considérée saine.
++ L’individu souffre probablement d’une forme génétique de neuropathie optique dominante due à ce variant.
+
+
+
+## [interpret-LTBP2-4964A-C]
+Une ophtalmologue suspecte une neuropathie optique héréditaire (NOH) chez un individu.
+Un diagnostic moléculaire en explorant un panel de gènes impliqués dans les NOH a été réalisé avec les résultats suivants (en anglais) :
+
+![](/Users/marcferre/Documents/Enseignement/Examens/Catalogues/Illustrations/Interpretation/LTBP2-4964A-C.png)
+
+### En se basant uniquement sur ces résultats :
+- Ce variant est classé comme variant ultra spécifique.
+- Il y a une faible conservation inter-espèces de l’acide aminé concerné.
++ Ce variant fait partie des 0,1 % de substitutions les plus délétères que l’on puisse apporter au génome humain (en théorie).
+- La maladie génétique dans laquelle ce variant est impliqué étant à transmission dominante ou récessive, ce variant peut être directement responsable de la neuropathie optique.
+
+
+________
+
+## [acces-gen]
+### En ce qui concerne l’accès à l’information génétique humaine :
++ En règle générale aux États-Unis, il est autorisé de récupérer un échantillon d’ADN humain « abandonné » dans un lieu et de l’analyser, puis d’utiliser les résultats obtenus.
+- En Grande-Bretagne, il est permis de récupérer un échantillon d’ADN humain, de le faire analyser et d’utiliser les informations ainsi obtenues.
++ En France, le séquençage du génome d’une personne peut être effectué à des fins médicales ou de recherche scientifique.
++ Sur le plan européen, il est illégal d’examiner un échantillon d’ADN humain sans le consentement de la personne concernée, sauf autorisation judiciaire ou cadres prédéterminés.
+
+
+
+## [confidentialite]
+### En ce qui concerne la confidentialité de l’information génétique humaine :
++ L’anonymisation des données génétiques peut être contournée par des recoupements (bases généalogiques, réseaux sociaux), ce qui rend possible la réidentification.
+- L’usage policier indirect de la généalogie génétique n’a jamais été fait en France.
+- L’accès au Fichier national automatisé des empreintes génétiques français (Fnaeg) est gratuit et sans restriction (*open access*).
++ La réutilisation secondaire des données de santé issues de tests récréatifs est une option qui est réellement envisagée par la justice française.
+
