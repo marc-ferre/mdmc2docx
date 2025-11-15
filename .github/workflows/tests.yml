@@ -2,9 +2,9 @@ name: Tests automatisés
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
@@ -12,60 +12,60 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        perl-version: ['5.20', '5.30', '5.32']
+        perl-version: ["5.20", "5.30", "5.32"]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Setup Perl
-      uses: shogo82148/actions-setup-perl@v1
-      with:
-        perl-version: ${{ matrix.perl-version }}
+      - name: Setup Perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl-version }}
 
-    - name: Install Pandoc
-      run: |
-        if [[ "$RUNNER_OS" == "Linux" ]]; then
-          sudo apt-get update
-          sudo apt-get install -y pandoc
-        elif [[ "$RUNNER_OS" == "macOS" ]]; then
-          brew install pandoc
-        fi
+      - name: Install Pandoc
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install -y pandoc
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            brew install pandoc
+          fi
 
-    - name: Install Perl dependencies
-      run: |
-        cpanm --installdeps --notest .
-        cpanm JSON::PP
+      - name: Install Perl dependencies
+        run: |
+          cpanm --installdeps --notest .
+          cpanm JSON::PP
 
-    - name: Check script syntax
-      run: |
-        perl -c bin/mdmc2docx.pl
+      - name: Check script syntax
+        run: |
+          perl -c bin/mdmc2docx.pl
 
-    - name: Run Tests
-      run: make test-ci
+      - name: Run Tests
+        run: make test-ci
 
-    - name: Test example conversion
-      run: |
-        make example
-        # Vérifier que le fichier DOCX a été créé
-        if [[ -f "examples/exemple_mc.docx" ]]; then
-          echo "✅ Conversion exemple réussie"
-        else
-          echo "❌ Conversion exemple échouée"
-          exit 1
-        fi
+      - name: Test example conversion
+        run: |
+          make example
+          # Vérifier que le fichier DOCX a été créé
+          if [[ -f "examples/exemple_mc.docx" ]]; then
+            echo "✅ Conversion exemple réussie"
+          else
+            echo "❌ Conversion exemple échouée"
+            exit 1
+          fi
 
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Perl
-      uses: shogo82148/actions-setup-perl@v1
-      with:
-        perl-version: '5.32'
-        
-    - name: Install Perl::Critic
-      run: cpanm Perl::Critic
-      
-    - name: Perl Critic
-      run: perlcritic bin/mdmc2docx.pl || true
+      - uses: actions/checkout@v3
+
+      - name: Setup Perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: "5.32"
+
+      - name: Install Perl::Critic
+        run: cpanm Perl::Critic
+
+      - name: Perl Critic
+        run: perlcritic bin/mdmc2docx.pl || true

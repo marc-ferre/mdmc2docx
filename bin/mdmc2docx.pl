@@ -604,7 +604,8 @@ sub convert_to_docx {
     
     my @pandoc_args = (
         $temp_path,
-        -f => 'markdown+raw_html',
+        # Active explicitement les extensions de tableaux pour Pandoc
+        -f => 'markdown+raw_html+pipe_tables+grid_tables+table_captions+multiline_tables+simple_tables',
         -t => 'docx+styles',
         -o => $output_path
     );
