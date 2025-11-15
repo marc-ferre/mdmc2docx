@@ -380,6 +380,7 @@ sub parse_and_convert {
     }
     
     my $line_number = 0;
+    my $in_table_block = 0; # détecte si on est dans un bloc tableau (pipe/grid)
     while (my $line = <$in_fh>) {
         $line_number++;
         
@@ -417,6 +418,20 @@ sub parse_and_convert {
                 }
             }
             elsif ($q_into && !$a_into) {
+                my $is_table_line = ($line =~ /^\|/ || $line =~ /^\+-/);
+
+                # Entrée de bloc tableau: forcer une ligne vide avant
+                if ($is_table_line && !$in_table_block) {
+                    $questions_string .= "\n" unless $questions_string =~ /\n\n$/;
+                    $in_table_block = 1;
+                }
+
+                # Sortie de bloc tableau: si la ligne courante n'est pas un tableau et qu'on était dans un tableau, forcer une ligne vide avant contenu non-tableau
+                if (!$is_table_line && $in_table_block) {
+                    $questions_string .= "\n" unless $questions_string =~ /\n\n$/;
+                    $in_table_block = 0;
+                }
+
                 $questions_string .= "$line\n";
             }
             elsif (!$q_into && !$a_into) {
@@ -437,6 +452,7 @@ sub parse_and_convert {
     if ($a_into) {
         die "Fichier terminé de manière inattendue dans le contexte des réponses\n";
     }
+    # Si on termine alors qu'on était dans un bloc tableau au sein de la question, rien de spécial à faire
     
     if ($q_into) {
         $warnings_count++;
