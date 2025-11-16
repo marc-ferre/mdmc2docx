@@ -391,9 +391,8 @@ sub parse_and_convert {
             $line =~ s/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]//g;
             $line =~ s/^\s+|\s+$//g;    # Trim
             
-            if ($opts{no_final_dot}) {
-                $line =~ s/\.$//g;
-            }
+            # Note: suppression du point final déplacée dans process_answer()
+            # pour ne l'appliquer qu'aux propositions, pas au texte de question
         };
         if ($@) {
             log_message("Ligne $line_number: Caractère invalide détecté et ignoré", 'WARN');
@@ -507,6 +506,11 @@ sub process_answer {
     
     $$q_into_ref = 0;
     $$a_into_ref = 1;
+    
+    # Suppression du point final uniquement sur les propositions si demandé
+    if ($opts{no_final_dot}) {
+        $text =~ s/\.$//g;
+    }
     
     push @$answers_eval_ref, $eval;
     push @$answers_string_ref, $text;
