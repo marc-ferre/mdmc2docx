@@ -381,6 +381,7 @@ sub parse_and_convert {
     
     my $line_number = 0;
     my $in_table_block = 0; # détecte si on est dans un bloc tableau (pipe/grid)
+    my $prev_line_empty = 0; # pour détecter les doubles lignes vides
     while (my $line = <$in_fh>) {
         $line_number++;
         
@@ -414,6 +415,19 @@ sub parse_and_convert {
             elsif ($line =~ m/^[_\s]*$/) {
                 if ($a_into) {
                     process_end_answers($out_fh, \$a_into, \$a_id, \$questions_string, \@answers_string, \@answers_eval, \$questions_count, $completemulti_string, $line_number, \$total_true_answers, \$total_false_answers);
+                    $prev_line_empty = 0;
+                } elsif ($q_into && !$a_into) {
+                    # Ligne vide dans le texte de question
+                    if ($prev_line_empty) {
+                        # Deuxième ligne vide consécutive: insérer un séparateur visible
+                        $questions_string .= "&nbsp;\n";
+                    } else {
+                        # Première ligne vide: juste la conserver
+                        $questions_string .= "\n";
+                    }
+                    $prev_line_empty = 1;
+                } else {
+                    $prev_line_empty = 0;
                 }
             }
             elsif ($q_into && !$a_into) {
@@ -432,6 +446,7 @@ sub parse_and_convert {
                 }
 
                 $questions_string .= "$line\n";
+                $prev_line_empty = 0; # ligne non vide
             }
             elsif (!$q_into && !$a_into) {
                 print $out_fh "$line\n";
