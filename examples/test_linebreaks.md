@@ -12,4 +12,5 @@ Deuxième partie après saut.
 - Mauvaise réponse
 - Autre mauvaise
 - Encore mauvaise
+- Aucune des propositions ci-dessus n'est exacte
 
