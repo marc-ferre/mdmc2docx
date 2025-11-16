@@ -382,6 +382,8 @@ sub parse_and_convert {
     my $line_number = 0;
     my $in_table_block = 0; # détecte si on est dans un bloc tableau (pipe/grid)
     my $prev_line_empty = 0; # pour détecter les doubles lignes vides
+    my $question_text_started = 0; # pour savoir si on a déjà le texte de question (###)
+    my $has_question_content = 0; # pour savoir si on a déjà du contenu textuel dans la question
     while (my $line = <$in_fh>) {
         $line_number++;
         
@@ -405,29 +407,32 @@ sub parse_and_convert {
             # Traitement selon le type de ligne
             if ($line =~ m/^## \[(.+)\]/) {
                 process_question_id(\$q_into, \$a_into, \$questions_string, \$q_id, $1, $line_number);
+                $question_text_started = 0; # nouvelle question
+                $has_question_content = 0; # pas encore de contenu
             }
             elsif ($line =~ m/^### (.+)$/) {
                 process_question_text(\$q_into, \$questions_string, $1, $line_number);
+                $question_text_started = 1; # texte de question commencé
+                $has_question_content = 0; # le titre ### ne compte pas comme contenu
             }
             elsif ($line =~ m/^([\+-]) (.+)$/) {
-                process_answer(\$q_into, \$a_into, \@answers_eval, \@answers_string, \$a_id, \$answers_count, $1, $2);
+                process_answer(\$q_into, \$a_into, \@answers_eval, \@answers_string, \$a_id, \$answers_count, $1, $2, \$questions_string);
+                $has_question_content = 0; # plus de contenu de question, on est dans les réponses
             }
             elsif ($line =~ m/^[_\s]*$/) {
                 if ($a_into) {
                     process_end_answers($out_fh, \$a_into, \$a_id, \$questions_string, \@answers_string, \@answers_eval, \$questions_count, $completemulti_string, $line_number, \$total_true_answers, \$total_false_answers);
                     $prev_line_empty = 0;
-                } elsif ($q_into && !$a_into) {
-                    # Ligne vide dans le texte de question
-                    if ($prev_line_empty) {
-                        # Deuxième ligne vide consécutive: insérer un séparateur visible
-                        $questions_string .= "&nbsp;\n";
-                    } else {
-                        # Première ligne vide: juste la conserver
-                        $questions_string .= "\n";
-                    }
+                    $question_text_started = 0;
+                    $has_question_content = 0;
+                } elsif ($q_into && !$a_into && $question_text_started && $has_question_content && !$prev_line_empty) {
+                    # Ligne vide dans le texte de question: insérer un séparateur visible
+                    # Uniquement si on a déjà du contenu et que la ligne précédente n'était pas vide
+                    $questions_string .= "\n&nbsp;\n";
                     $prev_line_empty = 1;
                 } else {
-                    $prev_line_empty = 0;
+                    # Sinon on ne conserve que l'info de ligne vide
+                    $prev_line_empty = 1;
                 }
             }
             elsif ($q_into && !$a_into) {
@@ -447,6 +452,7 @@ sub parse_and_convert {
 
                 $questions_string .= "$line\n";
                 $prev_line_empty = 0; # ligne non vide
+                $has_question_content = 1; # on a du contenu textuel
             }
             elsif (!$q_into && !$a_into) {
                 print $out_fh "$line\n";
@@ -517,10 +523,13 @@ sub process_question_text {
 }
 
 sub process_answer {
-    my ($q_into_ref, $a_into_ref, $answers_eval_ref, $answers_string_ref, $a_id_ref, $answers_count_ref, $eval, $text) = @_;
+    my ($q_into_ref, $a_into_ref, $answers_eval_ref, $answers_string_ref, $a_id_ref, $answers_count_ref, $eval, $text, $questions_ref) = @_;
     
     $$q_into_ref = 0;
     $$a_into_ref = 1;
+    
+    # Supprimer un éventuel &nbsp; final dans le texte de question (ligne vide avant les réponses)
+    $$questions_ref =~ s/&nbsp;\n$//;
     
     # Suppression du point final uniquement sur les propositions si demandé
     if ($opts{no_final_dot}) {

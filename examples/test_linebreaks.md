@@ -2,12 +2,11 @@
 
 ## [test1]
 
-### Texte avec double saut de ligne
+### Texte avec saut de ligne
 
 Première partie du texte.
 
-
-Deuxième partie après double saut.
+Deuxième partie après saut.
 
 + Bonne réponse
 - Mauvaise réponse
