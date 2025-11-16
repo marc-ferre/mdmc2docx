@@ -411,7 +411,7 @@ sub parse_and_convert {
                 $has_question_content = 0; # pas encore de contenu
             }
             elsif ($line =~ m/^### (.+)$/) {
-                process_question_text(\$q_into, \$questions_string, $1, $line_number);
+                process_question_text(\$q_into, \$questions_string, $1, $line_number, \$in_table_block);
                 $question_text_started = 1; # texte de question commencé
                 $has_question_content = 0; # le titre ### ne compte pas comme contenu
             }
@@ -426,9 +426,9 @@ sub parse_and_convert {
                     $question_text_started = 0;
                     $has_question_content = 0;
                 } elsif ($q_into && !$a_into && $question_text_started && $has_question_content && !$prev_line_empty) {
-                    # Ligne vide dans le texte de question: insérer un séparateur visible
+                    # Ligne vide dans le texte de question: insérer une vraie ligne vide
                     # Uniquement si on a déjà du contenu et que la ligne précédente n'était pas vide
-                    $questions_string .= "\n&nbsp;\n";
+                    $questions_string .= "\n";
                     $prev_line_empty = 1;
                 } else {
                     # Sinon on ne conserve que l'info de ligne vide
@@ -444,9 +444,9 @@ sub parse_and_convert {
                     $in_table_block = 1;
                 }
 
-                # Sortie de bloc tableau: si la ligne courante n'est pas un tableau et qu'on était dans un tableau, forcer une ligne vide avant contenu non-tableau
+                # Sortie de bloc tableau: marquer qu'on sort mais ne pas ajouter de ligne vide
+                # (Pandoc gère déjà l'espacement des tableaux)
                 if (!$is_table_line && $in_table_block) {
-                    $questions_string .= "\n" unless $questions_string =~ /\n\n$/;
                     $in_table_block = 0;
                 }
 
@@ -513,10 +513,16 @@ sub process_question_id {
 }
 
 sub process_question_text {
-    my ($q_into_ref, $questions_ref, $text, $line_number) = @_;
+    my ($q_into_ref, $questions_ref, $text, $line_number, $in_table_block_ref) = @_;
     
     unless ($$q_into_ref) {
         die "Texte de question trouvé hors contexte de question";
+    }
+    
+    # Ajouter une ligne vide avant le titre si du contenu existe déjà
+    # SAUF si on vient de sortir d'un tableau (qui a déjà ajouté une ligne vide)
+    if ($$questions_ref && $$questions_ref !~ /\n\n$/ && !$$in_table_block_ref) {
+        $$questions_ref .= "\n";
     }
     
     $$questions_ref .= "**$text**\n";
@@ -528,8 +534,7 @@ sub process_answer {
     $$q_into_ref = 0;
     $$a_into_ref = 1;
     
-    # Supprimer un éventuel &nbsp; final dans le texte de question (ligne vide avant les réponses)
-    $$questions_ref =~ s/&nbsp;\n$//;
+    # Pas besoin de nettoyer &nbsp; puisqu'on utilise des vraies lignes vides maintenant
     
     # Suppression du point final uniquement sur les propositions si demandé
     if ($opts{no_final_dot}) {
