@@ -121,7 +121,7 @@ echo -e "${GREEN}✅ Permissions configurées${NC}"
 # Création du lien symbolique optionnel
 echo
 echo -e "${YELLOW}Configuration du PATH (optionnel)...${NC}"
-read -p "Créer un lien symbolique dans /usr/local/bin? (y/N): " create_link
+read -r -p "Créer un lien symbolique dans /usr/local/bin? (y/N): " create_link
 
 if [[ $create_link == "y" || $create_link == "Y" ]]; then
     if sudo ln -sf "$SCRIPT_DIR/bin/mdmc2docx.pl" /usr/local/bin/mdmc2docx 2>/dev/null; then

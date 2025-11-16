@@ -37,10 +37,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     
     for run_id in $RUNS; do
         echo "  Suppression du run $run_id..."
-        curl -s -X DELETE -H "Authorization: token $TOKEN" \
-          "https://api.github.com/repos/$REPO/actions/runs/$run_id" > /dev/null
-        
-        if [ $? -eq 0 ]; then
+        if curl -s -X DELETE -H "Authorization: token $TOKEN" \
+          "https://api.github.com/repos/$REPO/actions/runs/$run_id" > /dev/null; then
             echo "    ✅ Run $run_id supprimé"
         else
             echo "    ❌ Erreur lors de la suppression du run $run_id"

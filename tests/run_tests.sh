@@ -64,11 +64,11 @@ echo
 echo -e "${YELLOW}Test 2: Conversion basique${NC}"
 ((test_count++))
 if [[ -f "$EXAMPLES_DIR/exemple_mc.md" ]]; then
-    cd "$EXAMPLES_DIR"
+    cd "$EXAMPLES_DIR" || exit 1
     if "$SCRIPT_PATH" --verbose exemple_mc.md > /dev/null 2>&1 && [[ -f "exemple_mc.docx" ]]; then
         ((passed_count++))
         print_test_result "Conversion basique"
-        echo "   📄 Fichier généré: $(ls -lh exemple_mc.docx | awk '{print $5}')"
+        echo "   📄 Fichier généré: $(stat -f%z exemple_mc.docx | awk '{printf "%.0fK", $1/1024}')"
     else
         print_test_result "Conversion basique" 1
     fi
@@ -81,7 +81,7 @@ echo
 echo -e "${YELLOW}Test 3: Numérotation personnalisée (--fid 10)${NC}"
 ((test_count++))
 if [[ -f "$EXAMPLES_DIR/exemple_mc.md" ]]; then
-    cd "$EXAMPLES_DIR"
+    cd "$EXAMPLES_DIR" || exit 1
     if "$SCRIPT_PATH" --fid 10 --verbose exemple_mc.md > /dev/null 2>&1; then
         ((passed_count++))
         print_test_result "Numérotation personnalisée"
@@ -95,7 +95,7 @@ echo
 echo -e "${YELLOW}Test 4: Conservation du fichier temporaire${NC}"
 ((test_count++))
 if [[ -f "$EXAMPLES_DIR/exemple_mc.md" ]]; then
-    cd "$EXAMPLES_DIR"
+    cd "$EXAMPLES_DIR" || exit 1
     if "$SCRIPT_PATH" --keep --verbose exemple_mc.md > /dev/null 2>&1 && [[ -f "exemple_mc.md4docx" ]]; then
         ((passed_count++))
         print_test_result "Conservation fichier temporaire"
@@ -111,7 +111,7 @@ echo
 echo -e "${YELLOW}Test 5: Configuration personnalisée${NC}"
 ((test_count++))
 if [[ -f "$CONFIG_DIR/default.json" && -f "$EXAMPLES_DIR/exemple_mc.md" ]]; then
-    cd "$EXAMPLES_DIR"
+    cd "$EXAMPLES_DIR" || exit 1
     if "$SCRIPT_PATH" --config ../config/default.json --verbose exemple_mc.md > /dev/null 2>&1; then
         ((passed_count++))
         print_test_result "Configuration personnalisée"
@@ -124,7 +124,7 @@ echo
 # Test 6: Gestion d'erreur (fichier inexistant)
 echo -e "${YELLOW}Test 6: Gestion d'erreur (fichier inexistant)${NC}"
 ((test_count++))
-cd "$EXAMPLES_DIR"
+cd "$EXAMPLES_DIR" || exit 1
 if ! "$SCRIPT_PATH" fichier_inexistant.md > /dev/null 2>&1; then
     ((passed_count++))
     print_test_result "Gestion d'erreur"
@@ -137,7 +137,7 @@ echo
 echo -e "${YELLOW}Test 7: MC avec 5 propositions${NC}"
 ((test_count++))
 if [[ -f "$EXAMPLES_DIR/exemple_mc_5prop.md" ]]; then
-    cd "$EXAMPLES_DIR"
+    cd "$EXAMPLES_DIR" || exit 1
     if "$SCRIPT_PATH" --keep --verbose exemple_mc_5prop.md > /dev/null 2>&1 && [[ -f "exemple_mc_5prop.md4docx" ]]; then
         # Vérifier qu'il n'y a PAS de "Aucune des propositions" dans le fichier généré
         if ! grep -q "Aucune des propositions" exemple_mc_5prop.md4docx; then
@@ -158,7 +158,7 @@ echo
 echo -e "${YELLOW}Test 8: Erreur avec 3 propositions${NC}"
 ((test_count++))
 if [[ -f "$EXAMPLES_DIR/exemple_mc_invalide.md" ]]; then
-    cd "$EXAMPLES_DIR"
+    cd "$EXAMPLES_DIR" || exit 1
     # Le script doit échouer avec un message d'erreur spécifique
     if "$SCRIPT_PATH" exemple_mc_invalide.md > /dev/null 2>&1; then
         print_test_result "Erreur avec 3 propositions" 1
@@ -181,7 +181,7 @@ echo
 echo -e "${YELLOW}Test 9: Police personnalisée (Arial 10)${NC}"
 ((test_count++))
 if [[ -f "$EXAMPLES_DIR/exemple_mc.md" ]]; then
-    cd "$EXAMPLES_DIR"
+    cd "$EXAMPLES_DIR" || exit 1
     if "$SCRIPT_PATH" --font Arial --fontsize 10 --verbose exemple_mc.md > /dev/null 2>&1 && [[ -f "exemple_mc.docx" ]]; then
         ((passed_count++))
         print_test_result "Police personnalisée"
@@ -231,7 +231,7 @@ if [ "$CI" = "true" ] || [ "$GITHUB_ACTIONS" = "true" ]; then
     echo -e "${GREEN}🧹 Fichiers de test supprimés automatiquement (CI)${NC}"
 else
     # En environnement local, demander confirmation
-    read -p "Supprimer les fichiers de test générés? (y/N): " cleanup
+    read -r -p "Supprimer les fichiers de test générés? (y/N): " cleanup
     if [[ $cleanup == "y" || $cleanup == "Y" ]]; then
         cd "$EXAMPLES_DIR" || exit 1
         rm -f exemple_mc.docx exemple_mc.md4docx
