@@ -58,7 +58,12 @@ use Getopt::Long qw(GetOptions);
 use File::Basename;
 use File::Spec;
 use FindBin qw($RealBin);
-use Pandoc;
+# Charger le module Pandoc (module Perl & binaire) de façon sûre afin de produire
+# un message d'erreur compréhensible si le module Perl n'est pas installé.
+my $pandoc_loaded = eval { require Pandoc; Pandoc->import(); 1; };
+unless ($pandoc_loaded) {
+    die "Le module Perl 'Pandoc' n'est pas installé. Installez-le avec: cpanm Pandoc\n";
+}
 
 # Détection des chemins relatifs au script
 my $script_dir = File::Spec->catdir($RealBin, '..');
@@ -255,8 +260,8 @@ sub validate_prerequisites {
     
     # Vérification de Pandoc
     eval {
-        pandoc or die "Exécutable pandoc introuvable dans le PATH";
-        my $version = pandoc->version;
+        Pandoc::pandoc() or die "Exécutable pandoc introuvable dans le PATH";
+        my $version = Pandoc::pandoc()->version;
         unless ($version && $version > $config{min_pandoc_version}) {
             die sprintf "Pandoc >= %s requis (version actuelle: %s)", 
                 $config{min_pandoc_version}, $version || 'inconnue';
@@ -698,7 +703,7 @@ sub convert_to_docx {
     
 
     eval {
-        pandoc @pandoc_args;
+        Pandoc::pandoc(@pandoc_args);
     };
     if ($@) {
         die "Erreur lors de la conversion Pandoc: $@";
