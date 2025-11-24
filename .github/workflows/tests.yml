@@ -36,12 +36,12 @@ jobs:
           cpanm --installdeps --notest .
           cpanm JSON::PP
 
+      - name: Make script executable
+        run: chmod +x bin/mdmc2docx.pl
+
       - name: Check script syntax
         run: |
           perl -c bin/mdmc2docx.pl
-
-      - name: Make script executable
-        run: chmod +x bin/mdmc2docx.pl
 
       - name: Run Tests
         run: make test-ci
