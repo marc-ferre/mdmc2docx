@@ -15,3 +15,4 @@
 - Le tableau ne sera pas converti.
 - Il faut écrire du HTML pour les tableaux.
 - Pandoc ne gère pas les tableaux Markdown.
+
