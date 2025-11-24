@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/marc-ferre/mdmc2docx/workflows/Tests%20automatisés/badge.svg)](https://github.com/marc-ferre/mdmc2docx/actions)
 [![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/marc-ferre/mdmc2docx/releases/tag/v2.1.0)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-CeCILL%20v2.1-blue.svg)](LICENSE)
 [![Perl](https://img.shields.io/badge/perl-5.10+-yellow.svg)](https://www.perl.org/)
 [![Pandoc](https://img.shields.io/badge/pandoc-1.12+-orange.svg)](https://pandoc.org/)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey.svg)](README.md#prérequis)
@@ -354,7 +354,7 @@ Le mode verbeux affiche :
 
 ## 📄 Licence
 
-© Marc FERRE - Université d'Angers - Tous droits réservés
+© Marc FERRE - Université d'Angers - Licence CeCILL v2.1
 
 ## 🔗 Liens utiles
 
