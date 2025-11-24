@@ -4,6 +4,27 @@ Toutes les modifications importantes de ce projet sont documentées dans ce fich
 
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2.2.0] - 2025-11-24
+
+### ✨ Ajouté
+
+- 🎯 **Amélioration du rendu des tableaux** : Correction de l'affichage des tableaux pipe en texte brut, ajout des extensions Pandoc nécessaires (pipe_tables, grid_tables, etc.)
+- 📏 **Sauts de ligne visibles** : Ajout de sauts de ligne dans Word pour les lignes vides dans le source MDMC
+- 🔧 **Refactorisation des appels Pandoc** : Remplacement du module Perl Pandoc par des appels système directs pour éviter les dépendances CI
+
+### 🔧 Modifié
+
+- **Portée de suppression des points** : Limitation à la suppression des points uniquement dans les propositions de réponses, pas dans les questions
+- **Qualité du code** : Correction de tous les avertissements shellcheck dans les scripts
+- **Configuration markdownlint** : Ajout de .markdownlint.json pour gérer le format mdmc
+- **CI/CD** : Désactivation temporaire du workflow GitHub Actions en raison de problèmes d'infrastructure
+
+### 🐛 Corrigé
+
+- **Erreurs markdownlint MD012** : Suppression des lignes vides consécutives multiples dans les fichiers exemples
+- **Permissions script** : Ajout de chmod +x dans le workflow CI pour assurer l'exécutabilité
+- **Dépendances** : Suppression de la dépendance au module Perl Pandoc
+
 ## [2.1.1] - 2025-10-12
 
 ### ✨ Ajouté
