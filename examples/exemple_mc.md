@@ -7,7 +7,7 @@
 - Marseille
 - Toulouse
 
-## [Q002]  
+## [Q002]
 ### Parmi ces langages, lesquels sont orientés objet ?
 + Java
 + Python

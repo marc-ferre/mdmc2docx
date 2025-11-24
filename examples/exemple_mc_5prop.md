@@ -10,7 +10,7 @@
 - Lille
 - Nice
 
-## [Q002]  
+## [Q002]
 
 ### Quels sont les nombres premiers inférieurs à 10 ?
 
