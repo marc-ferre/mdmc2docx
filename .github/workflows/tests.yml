@@ -34,13 +34,7 @@ jobs:
       - name: Install Perl dependencies
         run: |
           cpanm --installdeps --notest .
-          # Explicitement installer le module Pandoc (si pour une raison il n'était pas listé dans cpanfile)
-          cpanm --notest Pandoc || true
           cpanm JSON::PP
-
-      - name: Check Pandoc Perl module
-        run: |
-          perl -e 'eval{ require Pandoc; print "Pandoc Perl module found\n"; 1 } or die "Pandoc Perl module not found; run cpanm Pandoc\n"'
 
       - name: Check script syntax
         run: |

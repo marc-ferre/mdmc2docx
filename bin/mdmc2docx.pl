@@ -60,10 +60,11 @@ use File::Spec;
 use FindBin qw($RealBin);
 # Charger le module Pandoc (module Perl & binaire) de façon sûre afin de produire
 # un message d'erreur compréhensible si le module Perl n'est pas installé.
-my $pandoc_loaded = eval { require Pandoc; Pandoc->import(); 1; };
-unless ($pandoc_loaded) {
-    die "Le module Perl 'Pandoc' n'est pas installé. Installez-le avec: cpanm Pandoc\n";
-}
+# Note: Le module Perl Pandoc n'est plus utilisé, on utilise les appels système directement.
+# my $pandoc_loaded = eval { require Pandoc; Pandoc->import(); 1; };
+# unless ($pandoc_loaded) {
+#     die "Le module Perl 'Pandoc' n'est pas installé. Installez-le avec: cpanm Pandoc\n";
+# }
 
 # Détection des chemins relatifs au script
 my $script_dir = File::Spec->catdir($RealBin, '..');
@@ -259,18 +260,17 @@ sub validate_prerequisites {
     log_message("Validation des prérequis...", 'INFO');
     
     # Vérification de Pandoc
-    eval {
-        Pandoc::pandoc() or die "Exécutable pandoc introuvable dans le PATH";
-        my $version = Pandoc::pandoc()->version;
-        unless ($version && $version > $config{min_pandoc_version}) {
-            die sprintf "Pandoc >= %s requis (version actuelle: %s)", 
-                $config{min_pandoc_version}, $version || 'inconnue';
-        }
-        log_message("Pandoc version $version détecté", 'INFO');
-    };
-    if ($@) {
-        die "Erreur avec Pandoc: $@\n";
+    my $version_output = `pandoc --version 2>&1`;
+    my $exit_code = $? >> 8;
+    if ($exit_code != 0) {
+        die "Exécutable pandoc introuvable dans le PATH\n";
     }
+    my ($version) = $version_output =~ /pandoc (\d+(?:\.\d+)+)/;
+    unless ($version && $version ge $config{min_pandoc_version}) {
+        die sprintf "Pandoc >= %s requis (version actuelle: %s)\n", 
+            $config{min_pandoc_version}, $version || 'inconnue';
+    }
+    log_message("Pandoc version $version détecté", 'INFO');
     
     # Vérification du fichier de référence
     unless (-f $config{ref_path}) {
@@ -703,7 +703,7 @@ sub convert_to_docx {
     
 
     eval {
-        Pandoc::pandoc(@pandoc_args);
+        system('pandoc', @pandoc_args) == 0 or die "pandoc exited with code " . ($? >> 8);
     };
     if ($@) {
         die "Erreur lors de la conversion Pandoc: $@";
